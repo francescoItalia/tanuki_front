@@ -223,6 +223,7 @@ nav {
 }
 
 .nav__options {
+    opacity: 0;
     overflow: hidden;
     display: flex;
     flex-flow: column;
@@ -416,6 +417,9 @@ header + .wave svg {
     position: relative;
     z-index: 9999;
     font-weight: 600;
+    padding: 2rem;
+    background: var(--primary-font-colour-light);
+    border-radius: 20px;
 }
 
 .tokenomics .wave {
@@ -493,6 +497,10 @@ header + .wave svg {
 
 .tokenomics__cloud:nth-of-type(3) {
     background-image: url(../img/Cloud-Right.png);
+}
+
+.tokenomics__cloud:nth-of-type(4) {
+    background-image: url(../img/Cloud-Center.png);
 }
 
 .tokenomics__cloud::before {
@@ -589,6 +597,7 @@ header + .wave svg {
 
 .howToBuy h2, .blog h2 {
     padding-top: 6rem;
+    margin-top: 0;
 }
 
 .howToBuy__items, .blog__items {
@@ -725,10 +734,6 @@ header + .wave svg {
     color: black;
 }
 
-span.arrow {
-    display: none;
-}
-
 .small-items-gallery .gallery-item {
     width: calc(calc(100vw - 3.5rem)/1);
     transition: all .2s ease;
@@ -761,6 +766,59 @@ span.arrow {
 
 .small-items-gallery .gallery-item:hover img:nth-of-type(2) {
     transform: scale(1.1);
+}
+
+span.arrow {
+    background: var(--secondary-font-colour);
+    width: 8vw;
+    height: 8vw;
+    border-radius: 50%;
+    box-shadow: rgba(0, 0, 0, 0.14) 0px 1px 1px 1px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    margin-top: -20px;
+}
+
+span.arrow:active {
+    border: 3px solid rgb(226, 226, 226);
+    box-shadow: rgba(0, 0, 0, 0.5) 0px 0px 0px 1px, rgba(255, 255, 255, 0.7) 0px 0px 0px 5px;
+    outline: thin;
+    -webkit-transition: box-shadow 0.2s ease 0s;
+    -moz-transition: box-shadow 0.2s ease 0s;
+    -o-transition: box-shadow 0.2s ease 0s;
+    transition: box-shadow 0.2s ease 0s;
+}
+
+span.arrow svg {
+    width: 70%;
+    height: 70%;
+}
+
+span.arrow polyline {
+    stroke: white;
+    stroke-width: .1rem;
+}
+
+.scroll-right {
+    right: 4vw;
+    padding: 10px;
+}
+
+.scroll-right::before {
+    padding-left: 3px;
+    padding-top: 2px;
+}
+
+.scroll-left {
+    left: 4vw;
+    padding: 10px;
+}
+
+.scroll-left::before {
+    padding-right: 3px;
+    padding-top: 2px;
 }
 
 /****** FOOTER ******/
@@ -1144,59 +1202,6 @@ footer p {
         width: calc(calc(100vw - 21rem)/4);
     }
 
-    span.arrow {
-        background: #C33149;
-        width: 4vw;
-        height: 4vw;
-        border-radius: 50%;
-        box-shadow: rgba(0, 0, 0, 0.14) 0px 1px 1px 1px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        position: absolute;
-        margin-top: -20px;
-    }
-
-    span.arrow:active {
-        border: 3px solid rgb(226, 226, 226);
-        box-shadow: rgba(0, 0, 0, 0.5) 0px 0px 0px 1px, rgba(255, 255, 255, 0.7) 0px 0px 0px 5px;
-        outline: thin;
-        -webkit-transition: box-shadow 0.2s ease 0s;
-        -moz-transition: box-shadow 0.2s ease 0s;
-        -o-transition: box-shadow 0.2s ease 0s;
-        transition: box-shadow 0.2s ease 0s;
-    }
-
-    span.arrow svg {
-        width: 70%;
-        height: 70%;
-    }
-
-    span.arrow polyline {
-        stroke: white;
-        stroke-width: .1rem;
-    }
-
-    .scroll-right {
-        right: -4vw;
-        padding: 10px;
-    }
-
-    .scroll-right::before {
-        padding-left: 3px;
-        padding-top: 2px;
-    }
-
-    .scroll-left {
-        left: -4vw;
-        padding: 10px;
-    }
-
-    .scroll-left::before {
-        padding-right: 3px;
-        padding-top: 2px;
-    }
-
     /****** FOOTER ******/
     footer {
         height: 30vh;
@@ -1344,6 +1349,18 @@ footer p {
     margin-top: 5rem;
 }
 
+@keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translate3d(0, 100%, 0);
+    }
+  
+    to {
+      opacity: 1;
+      transform: translate3d(0, 0, 0);
+    }
+}
+
 @keyframes fadeInRight {
     from {
         opacity: 0;
@@ -1390,10 +1407,15 @@ footer p {
     animation-name: fadeIn;
 }
 
+.fadeInUp {
+    animation-name: fadeInUp;
+}
+
 .fadeInRight,
 .fadeInLeft,
-.fadeIn {
-    animation-duration: .3s;
+.fadeIn,
+.fadeInUp {
+    animation-duration: 1s;
     animation-timing-function: ease-in;
-    animation-fill-mode: forwards;
+    animation-fill-mode: both;
 }
