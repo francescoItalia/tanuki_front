@@ -391,7 +391,7 @@ class HaedingsAnimationController {
       let elementToObserve = document.querySelector(el.elementToObserve);
       let elementTargeted = document.querySelector(el.elementTargeted);
       let classToAdd = el.classToAdd;
-      console.log(el.elementTargeted);
+
       // Make targeted Elements not visible
       elementTargeted.style.opacity = 0;
 
@@ -458,18 +458,19 @@ class horizontalScrollController {
       this.scrollRight = this.scrollRight.bind(this);
       this.scrollLeft = this.scrollLeft.bind(this);
       this.buildScrollControllers = this.buildScrollControllers.bind(this);
+      this.handleControllersOnSwipe = this.handleControllersOnSwipe.bind(this)
       this.init = this.init.bind(this);
   }
 
   buildGalleriesData(galleriesNodes) {
-      for (const el of (galleriesNodes ? galleriesNodes : this.galleriesNodes)) {
-          const gData = {};
-          gData.clickCounter = 0;
-          gData.childrenCount = el.querySelectorAll('.gallery-item:not(.hide)').length;
-          gData.galleryNode = el;
-          gData.visibleItems = parseInt(gData.galleryNode.offsetWidth / gData.galleryNode.firstElementChild.offsetWidth);
-          this.galleriesData.push(gData);
-      }
+    for (const el of (galleriesNodes ? galleriesNodes : this.galleriesNodes)) {
+      const gData = {};
+      gData.clickCounter = 0;
+      gData.childrenCount = el.querySelectorAll('.gallery-item:not(.hide)').length;
+      gData.galleryNode = el;
+      gData.visibleItems = parseInt(gData.galleryNode.offsetWidth / gData.galleryNode.firstElementChild.offsetWidth);
+      this.galleriesData.push(gData);
+    }
   }
 
   buildScrollControllers() {
@@ -518,7 +519,6 @@ class horizontalScrollController {
   }
 
   handleControllersOnScroll(gData) {
-    console.log(gData);
       const _ = this;
 
       const { galleryNode, clickCounter, childrenCount, visibleItems } = gData;
@@ -573,7 +573,7 @@ class horizontalScrollController {
       const xmlns = 'http://www.w3.org/2000/svg';
 
       const span = document.createElement('span');
-      const galleryImgHeight = gallery.firstElementChild.querySelector('img').offsetHeight;
+      const galleryImgHeight = gallery.firstElementChild.querySelector('.description-container').offsetHeight;
 
       this.setAttributes(span, { 'style': `top: ${galleryImgHeight / 2}px` });
       span.classList.add('arrow', 'scroll-right');
@@ -602,7 +602,7 @@ class horizontalScrollController {
       const xmlns = 'http://www.w3.org/2000/svg';
 
       const span = document.createElement('span');
-      const galleryImgHeight = gallery.firstElementChild.querySelector('img').offsetHeight;
+      const galleryImgHeight = gallery.firstElementChild.querySelector('.description-container').offsetHeight;
 
       this.setAttributes(span, { 'style': `top: ${galleryImgHeight / 2}px` });
       span.classList.add('arrow', 'scroll-left');
@@ -628,53 +628,67 @@ class horizontalScrollController {
   }
 
   handleControllersOnSwipe() {
-    document.addEventListener('touchstart', handleTouchStart, false);        
-    document.addEventListener('touchmove', handleTouchMove, false);
+    const _ = this;
 
-    var xDown = null;                                                        
-    var yDown = null;
+    for (const gData of _.galleriesData) {
 
-    function getTouches(evt) {
-      return evt.touches
-    }                                                     
-                                                                            
-    function handleTouchStart(evt) {
-        const firstTouch = getTouches(evt)[0];                                      
-        xDown = firstTouch.clientX;                                      
-        yDown = firstTouch.clientY;                                      
-    };                                                
-                                                                            
-    function handleTouchMove(evt) {
-        if ( ! xDown || ! yDown ) {
-            return;
-        }
+      const { galleryNode, clickCounter, childrenCount, visibleItems } = gData;
+      
+      galleryNode.addEventListener('touchstart',handleTouchStart, false);
+      galleryNode.addEventListener('touchmove',handleTouchMove, false);
 
-        var xUp = evt.touches[0].clientX;                                    
-        var yUp = evt.touches[0].clientY;
+      var xDown = null;                                                        
+      var yDown = null;
 
-        var xDiff = xDown - xUp;
-        var yDiff = yDown - yUp;
-                                                                            
-        if ( Math.abs( xDiff ) > Math.abs( yDiff ) ) {/*most significant*/
-            if ( xDiff > 0 ) {
-                /* right swipe */ 
-            } else {
-                /* left swipe */
-            }                       
-        } else {
-            if ( yDiff > 0 ) {
-                /* down swipe */ 
-            } else { 
-                /* up swipe */
-            }                                                                 
-        }
-        /* reset values */
-        xDown = null;
-        yDown = null;                                             
-    };
+      function getTouches(evt) {
+        return evt.touches
+      }                                                     
+                                                                              
+      function handleTouchStart(evt) {
+          const firstTouch = getTouches(evt)[0];                                      
+          xDown = firstTouch.clientX;                                      
+          yDown = firstTouch.clientY;                                      
+      };                                                
+                                                                              
+      function handleTouchMove(evt) {
+          if ( ! xDown || ! yDown ) {
+              return;
+          }
+
+          var xUp = evt.touches[0].clientX;                                    
+          var yUp = evt.touches[0].clientY;
+
+          var xDiff = xDown - xUp;
+          var yDiff = yDown - yUp;
+          console.log(xDiff, yDiff);                                                                     
+          if ( Math.abs( xDiff ) > Math.abs( yDiff ) ) {/*most significant*/
+              if ( xDiff > 0 ) {
+                  /* right swipe */
+                  console.log('Swipe right');
+                  _.scrollRight(gData, true);
+              } else {
+                  /* left swipe */
+                  _.scrollLeft(gData, true);
+                  console.log('Swipe left');
+              }                       
+          } else {
+              if ( yDiff > 0 ) {
+                  /* down swipe */
+                  console.log('Swipe Down not supported');
+              } else { 
+                  /* up swipe */
+                  console.log('Swipe Up not supported');
+              }                                                                 
+          }
+          /* reset values */
+          xDown = null;
+          yDown = null;                                             
+      };
+    }
   }
 
-  scrollRight(gData) {
+  scrollRight(gData, isSwipe) {
+    if(!isSwipe) {
       // Get Gallery Elements width
       const galleryItemWidth = gData.galleryNode.firstElementChild.offsetWidth;
 
@@ -683,15 +697,16 @@ class horizontalScrollController {
           left: Math.ceil(gData.galleryNode.scrollLeft) + galleryItemWidth,
           behavior: 'smooth'
       });
+    }
 
-      // Increase Counter
-      if (gData.clickCounter < gData.childrenCount) gData.clickCounter++;
+    // Increase Counter
+    if (gData.clickCounter < gData.childrenCount) gData.clickCounter++;
 
-      this.handleControllersOnScroll(gData);
-
+    this.handleControllersOnScroll(gData);
   }
 
-  scrollLeft(gData) {
+  scrollLeft(gData, isSwipe) {
+    if(!isSwipe) {
       // Get Gallery Elements width
       const galleryItemWidth = gData.galleryNode.firstElementChild.offsetWidth;
 
@@ -700,11 +715,11 @@ class horizontalScrollController {
           left: Math.ceil(gData.galleryNode.scrollLeft) - galleryItemWidth,
           behavior: 'smooth'
       });
+    }
+    // Decrease Counter
+    if (gData.clickCounter > 0) gData.clickCounter--;
 
-      // Decrease Counter
-      if (gData.clickCounter > 0) gData.clickCounter--;
-
-      this.handleControllersOnScroll(gData);
+    this.handleControllersOnScroll(gData);
   }
 
   setAttributesNS(el, attrs) {
@@ -725,6 +740,7 @@ class horizontalScrollController {
         this.buildGalleriesData();
         this.buildScrollControllers();
         this.handleControllersOnResize();
+        this.handleControllersOnSwipe();
         // if provided, only build controllers if current screen width is >= than minimum width provided
     } else if (window.offSetWidth >= this.minDeviceWidth) {
         this.buildGalleriesData();
@@ -808,6 +824,26 @@ window.addEventListener('DOMContentLoaded', function () {
       classToAdd: 'fadeInUp',
     },
     {
+      elementToObserve: '.tokenomics__cloud:nth-of-type(1)',
+      elementTargeted: '.tokenomics__cloud:nth-of-type(1)',
+      classToAdd: 'fadeInUp',
+    },
+    {
+      elementToObserve: '.tokenomics__cloud:nth-of-type(2)',
+      elementTargeted: '.tokenomics__cloud:nth-of-type(2)',
+      classToAdd: 'fadeInUp',
+    },
+    {
+      elementToObserve: '.tokenomics__cloud:nth-of-type(3)',
+      elementTargeted: '.tokenomics__cloud:nth-of-type(3)',
+      classToAdd: 'fadeInUp',
+    },
+    {
+      elementToObserve: '.tokenomics__cloud:nth-of-type(4)',
+      elementTargeted: '.tokenomics__cloud:nth-of-type(4)',
+      classToAdd: 'fadeInUp',
+    },
+    {
       elementToObserve: '#howToBuy',
       elementTargeted: '#howToBuy p',
       classToAdd: 'fadeInRight',
@@ -822,11 +858,11 @@ window.addEventListener('DOMContentLoaded', function () {
       elementTargeted: '#roadmap h2',
       classToAdd: 'fadeInRight',
     },
-    {
-      elementToObserve: '#roadmap',
-      elementTargeted: '#roadmap .gallery-item',
-      classToAdd: 'fadeInUp',
-    },
+    // {
+    //   elementToObserve: '#roadmap',
+    //   elementTargeted: '#roadmap .gallery-item',
+    //   classToAdd: 'fadeInUp',
+    // },
   ]);
 
   const indexController = new IndexToIdSmoothScroll('body');
