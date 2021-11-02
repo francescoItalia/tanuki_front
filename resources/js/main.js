@@ -104,7 +104,7 @@ class MobileNavController {
   desktopInit() {
     const _ = this;
     window.addEventListener('scroll', _.toggleDesktopNavVisibility);
-    // this.toggleDesktopNavVisibility();
+    this.toggleDesktopNavVisibility();
   }
 
   toggleMobileNavVisibility(MidViewportHeight) {
@@ -389,7 +389,9 @@ class HaedingsAnimationController {
     // Loop through the heading data
     this.data.forEach(function (el) {
       let elementToObserve = document.querySelector(el.elementToObserve);
-      let elementTargeted = document.querySelector(el.elementTargeted);
+      let elementTargeted = el.elementTargeted
+        ? document.querySelector(el.elementTargeted)
+        : elementToObserve;
       let classToAdd = el.classToAdd;
 
       // Make targeted Elements not visible
@@ -447,255 +449,275 @@ class horizontalScrollController {
    * @param {object} options - An object containing the the CSS selectors of the elements to control
    * @param {string} options.galleries - A string in the form of a CSS selector to get the element to scroll
    * @param {string} [options.minDeviceWidth] - A string specifying a minimum (included) device width in px above which build controllers
-   * 
+   *
    **/
   constructor(options) {
-      this.galleriesNodes = document.querySelectorAll(options.galleries);
-      this.minDeviceWidth = options.minDeviceWidth ? options.minDeviceWidth.replace('px', '') : undefined;
-      this.galleriesData = [];
+    this.galleriesNodes = document.querySelectorAll(options.galleries);
+    this.minDeviceWidth = options.minDeviceWidth
+      ? options.minDeviceWidth.replace('px', '')
+      : undefined;
+    this.galleriesData = [];
 
-      // Binding
-      this.scrollRight = this.scrollRight.bind(this);
-      this.scrollLeft = this.scrollLeft.bind(this);
-      this.buildScrollControllers = this.buildScrollControllers.bind(this);
-      this.handleControllersOnSwipe = this.handleControllersOnSwipe.bind(this)
-      this.init = this.init.bind(this);
+    // Binding
+    this.scrollRight = this.scrollRight.bind(this);
+    this.scrollLeft = this.scrollLeft.bind(this);
+    this.buildScrollControllers = this.buildScrollControllers.bind(this);
+    this.handleControllersOnSwipe = this.handleControllersOnSwipe.bind(this);
+    this.init = this.init.bind(this);
   }
 
   buildGalleriesData(galleriesNodes) {
-    for (const el of (galleriesNodes ? galleriesNodes : this.galleriesNodes)) {
+    for (const el of galleriesNodes ? galleriesNodes : this.galleriesNodes) {
       const gData = {};
       gData.clickCounter = 0;
-      gData.childrenCount = el.querySelectorAll('.gallery-item:not(.hide)').length;
+      gData.childrenCount = el.querySelectorAll(
+        '.gallery-item:not(.hide)'
+      ).length;
       gData.galleryNode = el;
-      gData.visibleItems = parseInt(gData.galleryNode.offsetWidth / gData.galleryNode.firstElementChild.offsetWidth);
+      gData.visibleItems = parseInt(
+        gData.galleryNode.offsetWidth /
+          gData.galleryNode.firstElementChild.offsetWidth
+      );
       this.galleriesData.push(gData);
     }
   }
 
   buildScrollControllers() {
-      const _ = this;
+    const _ = this;
 
-      for (const gData of this.galleriesData) {
-          const { clickCounter, childrenCount, visibleItems, galleryNode } = gData;
+    for (const gData of this.galleriesData) {
+      const { clickCounter, childrenCount, visibleItems, galleryNode } = gData;
 
-          // If a text Gallery, don't build controllers
-          if (galleryNode.parentNode.classList.contains('text-filter-gallery')) continue;
+      // If a text Gallery, don't build controllers
+      if (galleryNode.parentNode.classList.contains('text-filter-gallery'))
+        continue;
 
-          // If the gallery doesn't have overflowed elements, no controllers are needed
-          if (childrenCount === visibleItems) continue;
+      // If the gallery doesn't have overflowed elements, no controllers are needed
+      if (childrenCount === visibleItems) continue;
 
-          // Bild the controllers
-          // If there are elements hidden on the left, add left controller
-          if (clickCounter > 0 && childrenCount > visibleItems) {
-              const leftController = this.buildLeftController(galleryNode);
+      // Bild the controllers
+      // If there are elements hidden on the left, add left controller
+      if (clickCounter > 0 && childrenCount > visibleItems) {
+        const leftController = this.buildLeftController(galleryNode);
 
-              // Add left scroll
-              leftController.addEventListener('click', function () { _.scrollLeft(gData) });
+        // Add left scroll
+        leftController.addEventListener('click', function () {
+          _.scrollLeft(gData);
+        });
 
-              galleryNode.appendChild(leftController);
-          }
-
-          // If there are elements hidden on the right, add right controller
-          if (childrenCount > visibleItems) {
-              const rightController = this.buildRightController(galleryNode);
-
-              // Add rigth scroll
-              rightController.addEventListener('click', function () { _.scrollRight(gData) });
-
-              galleryNode.appendChild(rightController);
-          }
+        galleryNode.appendChild(leftController);
       }
+
+      // If there are elements hidden on the right, add right controller
+      if (childrenCount > visibleItems) {
+        const rightController = this.buildRightController(galleryNode);
+
+        // Add rigth scroll
+        rightController.addEventListener('click', function () {
+          _.scrollRight(gData);
+        });
+
+        galleryNode.appendChild(rightController);
+      }
+    }
   }
 
   destroyScrollControllers(galleries) {
-      for (let gallery of galleries) {
-          const controllers = gallery.querySelectorAll('.arrow');
-          for (let controller of controllers) controller.parentNode.removeChild(controller);
-      }
+    for (let gallery of galleries) {
+      const controllers = gallery.querySelectorAll('.arrow');
+      for (let controller of controllers)
+        controller.parentNode.removeChild(controller);
+    }
 
-      // Clear galleries list
-      this.galleriesData = [];
+    // Clear galleries list
+    this.galleriesData = [];
   }
 
   handleControllersOnScroll(gData) {
-      const _ = this;
+    const _ = this;
 
-      const { galleryNode, clickCounter, childrenCount, visibleItems } = gData;
+    const { galleryNode, clickCounter, childrenCount, visibleItems } = gData;
 
-      // Get the existing controllers
-      let rightController = galleryNode.querySelector('.scroll-right');
-      let leftController = galleryNode.querySelector('.scroll-left');
+    // Get the existing controllers
+    let rightController = galleryNode.querySelector('.scroll-right');
+    let leftController = galleryNode.querySelector('.scroll-left');
 
-      // If a left controller already exists and there aren't elements overflowed on the left
-      if (leftController && clickCounter === 0) {
-          // Remove left controller
-          leftController.parentNode.removeChild(leftController);
+    // If a left controller already exists and there aren't elements overflowed on the left
+    if (leftController && clickCounter === 0) {
+      // Remove left controller
+      leftController.parentNode.removeChild(leftController);
 
-          // If a left controller doesn't exists and there are elements overflowed on the left
-      } else if (!leftController && clickCounter > 0) {
-          // Build Left Controller
-          leftController = this.buildLeftController(galleryNode);
-          galleryNode.appendChild(leftController);
+      // If a left controller doesn't exists and there are elements overflowed on the left
+    } else if (!leftController && clickCounter > 0) {
+      // Build Left Controller
+      leftController = this.buildLeftController(galleryNode);
+      galleryNode.appendChild(leftController);
 
-          // Add left scroll Event
-          leftController.addEventListener('click', function () { _.scrollLeft(gData) });
-      }
+      // Add left scroll Event
+      leftController.addEventListener('click', function () {
+        _.scrollLeft(gData);
+      });
+    }
 
-      // If a right controller already exists and there aren't elements overflowed on the right
-      if (rightController && clickCounter === childrenCount - visibleItems) {
+    // If a right controller already exists and there aren't elements overflowed on the right
+    if (rightController && clickCounter === childrenCount - visibleItems) {
+      // Remove right controller
+      rightController.parentNode.removeChild(rightController);
 
-          // Remove right controller
-          rightController.parentNode.removeChild(rightController)
+      // If a right controller doesn't exists and there are elements overflowed on the right
+    } else if (!rightController && clickCounter < childrenCount) {
+      // Build right Controller
+      rightController = this.buildRightController(galleryNode);
+      galleryNode.appendChild(rightController);
 
-          // If a right controller doesn't exists and there are elements overflowed on the right
-      } else if (!rightController && clickCounter < childrenCount) {
-          // Build right Controller
-          rightController = this.buildRightController(galleryNode);
-          galleryNode.appendChild(rightController);
-
-          // Add right scroll Event
-          rightController.addEventListener('click', function () { _.scrollRight(gData) });
-      }
+      // Add right scroll Event
+      rightController.addEventListener('click', function () {
+        _.scrollRight(gData);
+      });
+    }
   }
 
   handleControllersOnResize() {
-      // Recalculate on window resize
-      const _ = this;
-      window.addEventListener('resize', function () {
-          for (const gData of _.galleriesData) {
-              _.handleControllersOnScroll(gData)
-          }
-      })
+    // Recalculate on window resize
+    const _ = this;
+    window.addEventListener('resize', function () {
+      for (const gData of _.galleriesData) {
+        _.handleControllersOnScroll(gData);
+      }
+    });
   }
 
   buildRightController(gallery) {
-      const xmlns = 'http://www.w3.org/2000/svg';
+    const xmlns = 'http://www.w3.org/2000/svg';
 
-      const span = document.createElement('span');
-      const galleryImgHeight = gallery.firstElementChild.querySelector('.description-container').offsetHeight;
+    const span = document.createElement('span');
+    const galleryImgHeight = gallery.firstElementChild.querySelector(
+      '.description-container'
+    ).offsetHeight;
 
-      this.setAttributes(span, { 'style': `top: ${galleryImgHeight / 2}px` });
-      span.classList.add('arrow', 'scroll-right');
+    this.setAttributes(span, { 'style': `top: ${galleryImgHeight / 2}px` });
+    span.classList.add('arrow', 'scroll-right');
 
-      const svg = document.createElementNS(xmlns, 'svg');
-      this.setAttributesNS(svg, {
-          'viewBox': "0 0 10 10",
-          'role': "img",
-          'aria-label': "Next",
-      });
+    const svg = document.createElementNS(xmlns, 'svg');
+    this.setAttributesNS(svg, {
+      'viewBox': '0 0 10 10',
+      'role': 'img',
+      'aria-label': 'Next',
+    });
 
-      const polyline = document.createElementNS(xmlns, 'polyline');
-      this.setAttributesNS(polyline, {
-          'points': "4,1 7,5 4,9",
-          'fill': 'none',
-          'stroke': 'black'
-      });
+    const polyline = document.createElementNS(xmlns, 'polyline');
+    this.setAttributesNS(polyline, {
+      'points': '4,1 7,5 4,9',
+      'fill': 'none',
+      'stroke': 'black',
+    });
 
-      svg.appendChild(polyline);
-      span.appendChild(svg);
+    svg.appendChild(polyline);
+    span.appendChild(svg);
 
-      return span;
+    return span;
   }
 
   buildLeftController(gallery) {
-      const xmlns = 'http://www.w3.org/2000/svg';
+    const xmlns = 'http://www.w3.org/2000/svg';
 
-      const span = document.createElement('span');
-      const galleryImgHeight = gallery.firstElementChild.querySelector('.description-container').offsetHeight;
+    const span = document.createElement('span');
+    const galleryImgHeight = gallery.firstElementChild.querySelector(
+      '.description-container'
+    ).offsetHeight;
 
-      this.setAttributes(span, { 'style': `top: ${galleryImgHeight / 2}px` });
-      span.classList.add('arrow', 'scroll-left');
+    this.setAttributes(span, { 'style': `top: ${galleryImgHeight / 2}px` });
+    span.classList.add('arrow', 'scroll-left');
 
-      const svg = document.createElementNS(xmlns, 'svg');
-      this.setAttributesNS(svg, {
-          'viewBox': "0 0 10 10",
-          'role': "img",
-          'aria-label': "Previous",
-      });
+    const svg = document.createElementNS(xmlns, 'svg');
+    this.setAttributesNS(svg, {
+      'viewBox': '0 0 10 10',
+      'role': 'img',
+      'aria-label': 'Previous',
+    });
 
-      const polyline = document.createElementNS(xmlns, 'polyline');
-      this.setAttributesNS(polyline, {
-          'points': "7,1 4,5 7,9",
-          'fill': 'none',
-          'stroke': 'black'
-      });
+    const polyline = document.createElementNS(xmlns, 'polyline');
+    this.setAttributesNS(polyline, {
+      'points': '7,1 4,5 7,9',
+      'fill': 'none',
+      'stroke': 'black',
+    });
 
-      svg.appendChild(polyline);
-      span.appendChild(svg);
+    svg.appendChild(polyline);
+    span.appendChild(svg);
 
-      return span;
+    return span;
   }
 
   handleControllersOnSwipe() {
     const _ = this;
 
     for (const gData of _.galleriesData) {
-
       const { galleryNode, clickCounter, childrenCount, visibleItems } = gData;
-      
-      galleryNode.addEventListener('touchstart',handleTouchStart, false);
-      galleryNode.addEventListener('touchmove',handleTouchMove, false);
 
-      var xDown = null;                                                        
+      galleryNode.addEventListener('touchstart', handleTouchStart, false);
+      galleryNode.addEventListener('touchmove', handleTouchMove, false);
+
+      var xDown = null;
       var yDown = null;
 
       function getTouches(evt) {
-        return evt.touches
-      }                                                     
-                                                                              
+        return evt.touches;
+      }
+
       function handleTouchStart(evt) {
-          const firstTouch = getTouches(evt)[0];                                      
-          xDown = firstTouch.clientX;                                      
-          yDown = firstTouch.clientY;                                      
-      };                                                
-                                                                              
+        const firstTouch = getTouches(evt)[0];
+        xDown = firstTouch.clientX;
+        yDown = firstTouch.clientY;
+      }
+
       function handleTouchMove(evt) {
-          if ( ! xDown || ! yDown ) {
-              return;
-          }
+        if (!xDown || !yDown) {
+          return;
+        }
 
-          var xUp = evt.touches[0].clientX;                                    
-          var yUp = evt.touches[0].clientY;
+        var xUp = evt.touches[0].clientX;
+        var yUp = evt.touches[0].clientY;
 
-          var xDiff = xDown - xUp;
-          var yDiff = yDown - yUp;
-          console.log(xDiff, yDiff);                                                                     
-          if ( Math.abs( xDiff ) > Math.abs( yDiff ) ) {/*most significant*/
-              if ( xDiff > 0 ) {
-                  /* right swipe */
-                  console.log('Swipe right');
-                  _.scrollRight(gData, true);
-              } else {
-                  /* left swipe */
-                  _.scrollLeft(gData, true);
-                  console.log('Swipe left');
-              }                       
+        var xDiff = xDown - xUp;
+        var yDiff = yDown - yUp;
+        console.log(xDiff, yDiff);
+        if (Math.abs(xDiff) > Math.abs(yDiff)) {
+          /*most significant*/
+          if (xDiff > 0) {
+            /* right swipe */
+            console.log('Swipe right');
+            _.scrollRight(gData, true);
           } else {
-              if ( yDiff > 0 ) {
-                  /* down swipe */
-                  console.log('Swipe Down not supported');
-              } else { 
-                  /* up swipe */
-                  console.log('Swipe Up not supported');
-              }                                                                 
+            /* left swipe */
+            _.scrollLeft(gData, true);
+            console.log('Swipe left');
           }
-          /* reset values */
-          xDown = null;
-          yDown = null;                                             
-      };
+        } else {
+          if (yDiff > 0) {
+            /* down swipe */
+            console.log('Swipe Down not supported');
+          } else {
+            /* up swipe */
+            console.log('Swipe Up not supported');
+          }
+        }
+        /* reset values */
+        xDown = null;
+        yDown = null;
+      }
     }
   }
 
   scrollRight(gData, isSwipe) {
-    if(!isSwipe) {
+    if (!isSwipe) {
       // Get Gallery Elements width
       const galleryItemWidth = gData.galleryNode.firstElementChild.offsetWidth;
 
       gData.galleryNode.scrollTo({
-          top: 0,
-          left: Math.ceil(gData.galleryNode.scrollLeft) + galleryItemWidth,
-          behavior: 'smooth'
+        top: 0,
+        left: Math.ceil(gData.galleryNode.scrollLeft) + galleryItemWidth,
+        behavior: 'smooth',
       });
     }
 
@@ -706,14 +728,14 @@ class horizontalScrollController {
   }
 
   scrollLeft(gData, isSwipe) {
-    if(!isSwipe) {
+    if (!isSwipe) {
       // Get Gallery Elements width
       const galleryItemWidth = gData.galleryNode.firstElementChild.offsetWidth;
 
       gData.galleryNode.scrollTo({
-          top: 0,
-          left: Math.ceil(gData.galleryNode.scrollLeft) - galleryItemWidth,
-          behavior: 'smooth'
+        top: 0,
+        left: Math.ceil(gData.galleryNode.scrollLeft) - galleryItemWidth,
+        behavior: 'smooth',
       });
     }
     // Decrease Counter
@@ -723,27 +745,27 @@ class horizontalScrollController {
   }
 
   setAttributesNS(el, attrs) {
-      for (var key in attrs) {
-          el.setAttributeNS(null, key, attrs[key]);
-      }
+    for (var key in attrs) {
+      el.setAttributeNS(null, key, attrs[key]);
+    }
   }
 
   setAttributes(el, attrs) {
-      for (var key in attrs) {
-          el.setAttribute(key, attrs[key]);
-      }
+    for (var key in attrs) {
+      el.setAttribute(key, attrs[key]);
+    }
   }
 
   init() {
     // If no minimum width provided, always build controllers
     if (!this.minDeviceWidth) {
-        this.buildGalleriesData();
-        this.buildScrollControllers();
-        this.handleControllersOnResize();
-        this.handleControllersOnSwipe();
-        // if provided, only build controllers if current screen width is >= than minimum width provided
+      this.buildGalleriesData();
+      this.buildScrollControllers();
+      this.handleControllersOnResize();
+      this.handleControllersOnSwipe();
+      // if provided, only build controllers if current screen width is >= than minimum width provided
     } else if (window.offSetWidth >= this.minDeviceWidth) {
-        this.buildGalleriesData();
+      this.buildGalleriesData();
     }
   }
 }
@@ -768,7 +790,7 @@ window.addEventListener('DOMContentLoaded', function () {
 
   // Declared in the global scope to be used by other classes
   desktopGalleriesController = new horizontalScrollController({
-    galleries: '.gallery-items-container'
+    galleries: '.gallery-items-container',
   });
 
   const toggleScrollUpVisibilityController = new VisibilityObserver(
@@ -800,8 +822,38 @@ window.addEventListener('DOMContentLoaded', function () {
     },
     {
       elementToObserve: '#about',
-      elementTargeted: '#about .container',
+      elementTargeted: '#about h3',
       classToAdd: 'fadeInLeft',
+    },
+    {
+      elementToObserve: '#about',
+      elementTargeted: '#about h2',
+      classToAdd: 'fadeInRight',
+    },
+    {
+      elementToObserve: '#about li:nth-of-type(1)',
+      elementTargeted: '#about li:nth-of-type(1)',
+      classToAdd: 'fadeInUp',
+    },
+    {
+      elementToObserve: '#about li:nth-of-type(2)',
+      elementTargeted: '#about li:nth-of-type(2)',
+      classToAdd: 'fadeInUp',
+    },
+    {
+      elementToObserve: '#about li:nth-of-type(3)',
+      elementTargeted: '#about li:nth-of-type(3)',
+      classToAdd: 'fadeInUp',
+    },
+    {
+      elementToObserve: '#about li:nth-of-type(4)',
+      elementTargeted: '#about li:nth-of-type(4)',
+      classToAdd: 'fadeInUp',
+    },
+    {
+      elementToObserve: '#about p',
+      elementTargeted: '#about p',
+      classToAdd: 'fadeIn',
     },
     {
       elementToObserve: '#howToBuy',
@@ -810,18 +862,19 @@ window.addEventListener('DOMContentLoaded', function () {
     },
     {
       elementToObserve: '#howToBuy .howToBuy__item:nth-of-type(1)',
-      elementTargeted: '#howToBuy .howToBuy__item:nth-of-type(1)',
       classToAdd: 'fadeInUp',
     },
     {
       elementToObserve: '#howToBuy .howToBuy__item:nth-of-type(2)',
-      elementTargeted: '#howToBuy .howToBuy__item:nth-of-type(2)',
       classToAdd: 'fadeInUp',
     },
     {
       elementToObserve: '#howToBuy .howToBuy__item:nth-of-type(3)',
-      elementTargeted: '#howToBuy .howToBuy__item:nth-of-type(3)',
       classToAdd: 'fadeInUp',
+    },
+    {
+      elementToObserve: '#howToBuy .ctaButton',
+      classToAdd: 'fadeIn',
     },
     {
       elementToObserve: '.tokenomics__cloud:nth-of-type(1)',
@@ -855,7 +908,7 @@ window.addEventListener('DOMContentLoaded', function () {
     },
     {
       elementToObserve: '#roadmap',
-      elementTargeted: '#roadmap h2',
+      elementTargeted: '#roadmap .info',
       classToAdd: 'fadeInRight',
     },
     // {
@@ -871,8 +924,7 @@ window.addEventListener('DOMContentLoaded', function () {
     navVisibilityController.mobileInit();
     // toggleScrollUpVisibilityController.init();
   } else {
-    navVisibilityController.desktopInit();
-    
+    // navVisibilityController.desktopInit();
   }
 
   desktopGalleriesController.init();
@@ -880,7 +932,6 @@ window.addEventListener('DOMContentLoaded', function () {
   // Init classes
   indexController.init();
   headingsAnimationController.init();
-
 
   // Init Smooth scroll polyfill for Safari, Opera and IE
   !(function () {

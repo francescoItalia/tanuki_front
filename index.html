@@ -7,7 +7,7 @@
     <title>Tanuki Token</title>
 
     <!--************************************ CODE CSS ***************************-->
-    <link rel="stylesheet" href="./resources/css/main.css" />
+    <link rel="stylesheet" href="./resources/css/main.css?v=1" />
 
     <!--************************************ FONTS ***************************-->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -16,8 +16,15 @@
       href="https://fonts.googleapis.com/css2?family=Capriola&family=Nunito:wght@200;600&display=swap"
       rel="stylesheet"
     />
-     <!--************************************ FONTS ***************************-->
+     <!--************************************ FAVICON ***************************-->
     <link rel='shortcut icon' type='image/x-icon' href='./resources/img/tanuki_head.ico' />
+    <!--************************************ OPEN GRAPH META ***************************-->
+    <meta property="og:title" content="The Tanuki Token">
+    <meta property="og:site_name" content="Tanuki">
+    <meta property="og:url" content="https://www.tanukitoken.io/">
+    <meta property="og:description" content="Tanuki is a community driven decentralised Cryptocurrency token with a focus on charitable projects.">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="./resources/img/tanuki_head.svg">
   </head>
   <body>
     <header>
@@ -39,11 +46,12 @@
             </svg>
           </div>
           <div class="nav__options">
-            <a href="#header__intro">Intro</a>
-            <a href="#about">Chi Sono</a>
-            <a href="#tokenomics">Cosa Faccio</a>
-            <a href="#hobbies">I Miei Hobby</a>
-            <a href="#roadmap">roadmap</a>
+            <!-- <a href="#header__intro">Home</a> -->
+            <a href="#mission">Mission</a>
+            <a href="#tokenomics">Tokenomics</a>
+            <a href="#about">Why Invest</a>
+            <a href="#howToBuy">How To Buy</a>
+            <a href="#roadmap">Roadmap</a>
           </div>
         </div>
       </nav>
@@ -58,9 +66,14 @@
             a focus on charitable projects.
           </p>
           <a href="#roadmap" class="ctaButton">Buy $Tanuki</a>
+          <a href="#roadmap" target="_blank" class="ctaButton ext">Chart</a>
         </div>
         <div class="header__imgContainer">
-          <img src="./resources/img/tanuki.svg" alt="" />
+          <picture>
+            <source media="(min-width: 768px)" srcset="./resources/img/tanuki_with_hat.svg">
+            <img src="./resources/img/tanuki.svg" alt="tanuki">
+          </picture>
+          <img src="" alt="" />
         </div>
       </div>
     </header>
@@ -78,7 +91,10 @@
     </div>
     <section class="mission" id="mission">
       <div class="mission__imgContainer">
-        <img src="./resources/img/9bf4a4a1-1a10-4e66-a536-0a0ca97c435f.jfif" />
+        <picture>
+          <source media="(min-width: 1024px)" srcset="./resources/img/tanuki_pose.svg">
+          <img src="./resources/img/tanuki_handingout_gold.png" />
+        </picture>
         <div class="wave">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -94,7 +110,10 @@
       <div class="container">
         <div class="subContainer">
           <div class="info">
-            <h2>Our Mission</h2>
+            <div class="mission__title">
+              <img src="./resources/img/tanuki_pose.svg" alt="tanuki posing">
+              <h2>Our Mission</h2>
+            </div>
             <p>We are planning a trajectory to the moon and beyond, along the way we want to save the Earth through charitable projects.</p>
             <p>We are aiming to create a hardworking community driven with the ambition of creating a successful ecosystem around Tanuki
             </p>
@@ -117,7 +136,9 @@
     </div>
     <section class="tokenomics" id="tokenomics">
       <h2>Tokenomics</h2>
-      <p>When the browser loads the page it does so maximally zoomed out. It looks like your device size above has a width of 425px.</p>
+      <p>We created a fair launch coin with low tax fees, just 5 % on each transaction. 
+        We have a total supply of 10 Trillion.
+      </p>
       <div class="wave">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -157,20 +178,20 @@
             <div class="tokenomics__item">
               <span class="tokenomics__itemNumber">2</span>
               <span class="tokenomics__itemSuffix">%</span>
-              <h3 class="tokenomics__itemTitle">Marketing Wall</h3>
+              <h3 class="tokenomics__itemTitle">Marketing Wallet</h3>
             </div>
           </div>
           <div class="tokenomics__cloud">
             <div class="tokenomics__item">
               <span class="tokenomics__itemNumber">1</span>
               <span class="tokenomics__itemSuffix">%</span>
-              <h3 class="tokenomics__itemTitle">Charity Walle</h3>
+              <h3 class="tokenomics__itemTitle">Charity Wallet</h3>
             </div>
           </div>
           <div class="tokenomics__cloud">
             <div class="tokenomics__item">
-              <span class="tokenomics__itemNumber">15</span>
-              <span class="tokenomics__itemSuffix">+</span>
+              <span class="tokenomics__itemNumber">1</span>
+              <span class="tokenomics__itemSuffix">%</span>
               <h3 class="tokenomics__itemTitle">Burned</h3>
             </div>
           </div>
@@ -205,7 +226,7 @@
               <li><img src="./resources/img/tanuki_head.svg" class="icon"><span><b>2%</b> is added to the <b>marketing wallet</b>. This will allow us to spread the Tanuki awareness on global scale. We have big plans!</span></li>
               <li><img src="./resources/img/tanuki_head.svg" class="icon"><span><b>1%</b> is added to the <b>charity wallet</b>. Together we can make the world a better place.</span></li>
               <li><img src="./resources/img/tanuki_head.svg" class="icon"><span><b>1% is burned</b>. This makes our token deflationary over time thereby increasing the value.</span></li>
-              <li><img src="./resources/img/tanuki_head.svg" class="icon"><span><b>1%</b> is added to the <b>liquidity pool</b>. This will help to keep the price stable from market volatility</span></li>
+              <li><img src="./resources/img/tanuki_head.svg" class="icon"><span><b>1%</b> is added to the <b>liquidity pool</b>. This will help to keep the price stable from market volatility.</span></li>
             </ul>
             <p>We have lofty ambitions, we will move fast to achieve our goals. Watch this space!</p>
           </div>
@@ -252,7 +273,6 @@
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
               eiusmod tempor incididunt ut labore et dolore magna aliqua.
             </p>
-            <div class="ctaButton">Read More</div>
           </div>
           <div class="howToBuy__item">
             <div class="howToBuy__item__img">
@@ -263,7 +283,6 @@
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
               eiusmod tempor incididunt ut labore et dolore magna aliqua.
             </p>
-            <div class="ctaButton">Read More</div>
           </div>
           <div class="howToBuy__item">
             <div class="howToBuy__item__img">
@@ -274,9 +293,9 @@
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
               eiusmod tempor incididunt ut labore et dolore magna aliqua.
             </p>
-            <div class="ctaButton">Read More</div>
           </div>
         </div>
+        <div class="ctaButton">Buy $Tanuki</div>
       </div>
     </section>
     <div class="wave">
@@ -313,8 +332,7 @@
                 <ul>
                   <li><img src="./resources/img/tanuki_head.svg" class="icon"><span>Fair Launch</span></li>
                   <li><img src="./resources/img/tanuki_head.svg" class="icon"><span>Renounce Ownership + Burn LP Tokens</span></li>
-                  <li><img src="./resources/img/tanuki_head.svg" class="icon"><span>Website</span></li>
-                  <li><img src="./resources/img/tanuki_head.svg" class="icon"><span>Launch</span></li>
+                  <li><img src="./resources/img/tanuki_head.svg" class="icon"><span>Website Launch</span></li>
                   <li><img src="./resources/img/tanuki_head.svg" class="icon"><span>1000 members on Telegram</span</li>
                   <li><img src="./resources/img/tanuki_head.svg" class="icon"><span>1000 Holders</span></li>
                 </ul>
@@ -380,6 +398,7 @@
                   <li><img src="./resources/img/tanuki_head.svg" class="icon"><span>10000 members on Telegram</span></li>
                   <li><img src="./resources/img/tanuki_head.svg" class="icon"><span>20000 Wallet holders</span></li>
                   <li><img src="./resources/img/tanuki_head.svg" class="icon"><span>Tanuki ecosystem expansion</span></li>
+                  <li><img src="./resources/img/tanuki_head.svg" class="icon"><span>Merchandise Store Launch</span></li>
                 </ul>
                 <!-- <p class="preview">Preview<span class="fas fa-arrow-up"></span></p> -->
               </div>
@@ -448,19 +467,20 @@
       <div class="container">
         <div class="socialButtons">
           <a
-            class="fab fa-facebook-square"
-            href="https://www.facebook.com/francesco.l.italia"
+            class="fab fa-telegram"
+            href="https://twitter.com/TheTanukiToken"
           ></a>
-          <a
+          <!-- <a
             class="fab fa-github"
             href="https://github.com/francescoItalia"
-          ></a>
+          ></a> -->
           <a
-            class="fab fa-linkedin-in"
-            href="https://www.linkedin.com/in/francesco-italia-36982b73/"
+            class="fab fa-twitter-square"
+            href="https://twitter.com/TheTanukiToken"
           ></a>
         </div>
         <p>©2020 All Rights Reserved</p>
+        <p class="disclaimer">This is a disclaimer Text</p>
       </div>
     </footer>
     <!-- custom scripts -->
