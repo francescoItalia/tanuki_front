@@ -151,7 +151,7 @@ header{
     text-align: center;
     font-weight: 600;
     font-size: .8em;
-    padding: 0 2rem;
+    padding: 2rem;
 }
 
 .scrollUp {
@@ -679,7 +679,7 @@ header + .wave svg {
     padding-bottom: 4rem;
 }
 
-.howToBuy p {
+.intro__par {
     background: #ffffffeb;
     padding: 2rem;
     border-radius: 20px;
@@ -735,6 +735,7 @@ header + .wave svg {
     font-weight: 600;
     font-size: .8em;
     margin: 0 auto;
+    width: 90%;
 }
 
 .howToBuy .ctaButton, .blog .ctaButton {
@@ -936,19 +937,6 @@ span.arrow polyline {
     padding-top: 2px;
 }
 
-.roadmap + .wave {
-    margin-top: 0;
-    margin-bottom: -1px
-;
-}
-
-.roadmap + .wave svg {
-    fill: var(--secondary-font-colour);
-    width: 100%;
-    display: block;
-    transform: rotateX(180deg);
-}
-
 .roadmap li {
     display: flex;
     margin: 0 2rem 3rem 0;
@@ -959,6 +947,62 @@ span.arrow polyline {
     margin-top: 0;
     margin-right: 2rem;
     width: 2.5rem;
+}
+
+.roadmap + .wave {
+    margin-top: 0;
+    margin-bottom: -1px;
+}
+
+.roadmap + .wave svg {
+    fill: var(--secondary-colour-light);
+    width: 100%;
+    display: block;
+    transform: rotateX(180deg);
+}
+
+/****** DONATE ******/
+.donate {
+    background: var(--secondary-colour-light);
+    background-image: url('../img/tanuki_handingout_gold_no_bg.png');
+    background-size: 40vw;
+    background-position: right bottom;
+    background-repeat: no-repeat;
+    padding: 4rem 0
+}
+
+.donate p {
+    font-weight: 400;
+    font-size: .7em;
+}
+
+.donate ul {
+    margin-top: 6rem;
+    padding-left: 0;
+}
+
+.donate li {
+    display: flex;
+    margin: 0 2rem 1rem 0;
+}
+
+.donate li img.icon {
+    display: inline;
+    width: 2rem;
+    margin-right: 2rem
+}
+
+.donate + .wave {
+    margin-top: 0;
+    margin-bottom: -1px;
+}
+
+.donate + .wave svg {
+    background: var(--secondary-colour-light);
+    fill: var(--secondary-font-colour);
+    width: 100%;
+    display: block;
+    transform: rotateX(180deg);
 }
 
 /****** FOOTER ******/
@@ -1060,6 +1104,7 @@ footer p {
 
     .header__intro {
         flex-flow: row nowrap;
+        justify-content: space-between;
         width: 90%;
     }
 
@@ -1101,6 +1146,10 @@ footer p {
     }
 
     /***** TOKENOMICS *****/
+    .tokenomics {
+        font-size: 5vw;
+    }
+    
     .tokenomics h2 {
         background: none;
     }
@@ -1221,6 +1270,10 @@ footer p {
         left: 4vw;
     }
 
+    .donate {
+        background-size: 25vw;
+    }
+
     /****** FOOTER ******/
     footer {
         font-size: 4vw;
@@ -1257,6 +1310,12 @@ footer p {
 
     .info {
         font-size: 4.5vw;
+    }
+
+    p.intro__par {
+        width: 75%;
+        background: #ffffffeb;
+        border-radius: 50px;
     }
 
     h2 {
@@ -1335,6 +1394,10 @@ footer p {
         font-size: 4.5vw;
     }
 
+    .header__intro {
+        margin: calc(100vh/7) auto 0;
+    }
+
     .lineBreak::after {
         content: "\a";
         white-space: revert;
@@ -1348,6 +1411,7 @@ footer p {
     .mission {
         display: flex;
         flex-flow: row-reverse;
+        justify-content: space-between;
         padding-top: 7rem;
         padding-left: 5rem;
         padding-right: 5rem;
@@ -1386,13 +1450,8 @@ footer p {
 
     /****** TOKENOMICS *****/
     .tokenomics p {
-        font-size: 2.5vw;
         font-weight: 400;
-    }
-
-    .disclaimer {
-        margin-top: .5rem;
-        font-size: 1.5vw;
+        margin-bottom: 3.5rem;
     }
 
     .about .subContainer {
@@ -1407,10 +1466,6 @@ footer p {
     }
 
     /****** HOW TO BUY ******/
-    .howToBuy p {
-        background: #ffffffeb;
-        border-radius: 50px;
-    }
 
     .howToBuy .ctaButton {
         margin-top: 4rem;
@@ -1451,18 +1506,27 @@ footer p {
         margin-top: .8rem;
     }
 
-    /* .small-items-gallery .gallery-item {
-        width: calc(calc(100vw - 21rem)/4);
-    } */
+    /****** DONATE ******/
+    .donate .info {
+        display: flex;
+        flex-flow: column;
+        justify-content: center;
+        align-items: center;
+    }
 
     /****** FOOTER ******/
     footer {
         height: 30vh;
-        max-height: 140px;
+        max-height: 540px;
     }
 
     .socialButtons a {
         font-size: 4vw;
+    }
+
+    .disclaimer {
+        margin-top: .5rem;
+        font-size: 1.5vw;
     }
 
     footer p {
@@ -1475,6 +1539,14 @@ footer p {
     /****** COMMON ******/
     h2 {
         font-size: clamp(50px, 3.4vw, 60px);
+    }
+
+    p.intro__par {
+        width: 60%;
+    }
+
+    .info {
+        font-size: 3.5vw;
     }
 
     .info p, .tokenomics p, .about p {
@@ -1496,6 +1568,14 @@ footer p {
         font-size: clamp(15px, .6em, 30px);
     }
 
+    .header__intro {
+        margin: calc(100vh/4) auto 0;
+    }
+
+    .header__typedElements {
+        width: 70%;
+    }
+
     .header__title {
         font-size: clamp(60px, 1em, 80px);
     }
@@ -1509,10 +1589,12 @@ footer p {
     }
 
     /****** MISSION ******/
-    .mission img {
+    .mission picture img {
         width: 80%;
-        min-width: 512.5px;
-        max-width: 650px;
+        min-width: 212.5px;
+        max-width: 350px;
+        display: block;
+        margin: auto;
     }
 
     /****** TOKENOMICS ******/
@@ -1537,13 +1619,30 @@ footer p {
 @media all and (min-width:1360px) {
 
     /***** ROADMAP ******/
+    .roadmap li {
+        align-items: center;
+    }
+
+    .roadmap li img.icon {
+        width: 1.5rem;
+    }
     /* Gallery */
     .small-items-gallery {
         margin: 1.5rem var(--large-desktop-x-margin);
     }
 
     .small-items-gallery .gallery-item {
-        width: calc(calc(100vw - 36rem)/5);
+        width: calc(calc(100vw - 26rem)/4);
+    }
+
+    .gallery-items-container .description-container {
+        margin: 0;
+        width: 100%
+    }
+
+    .gallery-items-container .description-container li {
+        font-size: clamp(20px, 1vw, 30px);
+        margin: 1rem 0;
     }
 
     .gallery-items-container .description-container h3 {

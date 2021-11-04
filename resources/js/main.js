@@ -929,11 +929,22 @@ window.addEventListener('DOMContentLoaded', function () {
       elementTargeted: '#roadmap .info',
       classToAdd: 'fadeInLeft',
     },
-    {
-      elementToObserve: '#roadmap',
-      elementTargeted: '#roadmap .description-container',
-      classToAdd: 'fadeInRight',
-    },
+    // {
+    //   elementToObserve: '#roadmap .gallery-item:nth-of-type(1)',
+    //   classToAdd: 'fadeInUp',
+    // },
+    // {
+    //   elementToObserve: '#roadmap .gallery-item:nth-of-type(2)',
+    //   classToAdd: 'fadeInUp',
+    // },
+    // {
+    //   elementToObserve: '#roadmap .gallery-item:nth-of-type(3)',
+    //   classToAdd: 'fadeInUp',
+    // },
+    // {
+    //   elementToObserve: '#roadmap .gallery-item:nth-of-type(4)',
+    //   classToAdd: 'fadeInUp',
+    // },
   ]);
 
   const indexController = new IndexToIdSmoothScroll('body');
