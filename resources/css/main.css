@@ -99,7 +99,6 @@ h2 {
     font-family: var(--secondary-font);
     color: var(--secondary-font-colour);
     font-weight: 600;
-    font-size: 5.2vw;
 }
 
 h3 {
@@ -130,10 +129,29 @@ header{
     position: relative;
 }
 
-.info p {
+
+.info {
+    font-size: 6.5vw;
+}
+
+.info h2 {
+    font-size: 1em;
+}
+
+.info h3 {
+    font-size: .8em;
+}
+
+.info ul {
+    font-size: .7em;
+}
+
+.info p, .about p {
     color: var(--secondary-font-colour-light);
     text-align: center;
     font-weight: 600;
+    font-size: .8em;
+    padding: 0 2rem;
 }
 
 .scrollUp {
@@ -228,11 +246,11 @@ nav {
 .nav__logoContainer {
     font-family: var(--secondary-font);
     font-weight: 600;
-    font-size: 7vw;
 }
 
 .nav__logoContainer p {
     margin: 0;
+    font-size: 7vw;
 }
 
 .nav__mobileMenuIcon {
@@ -259,8 +277,8 @@ nav {
     background-color: var(--primary-colour-light);
 }
 
-.nav__options a {
-    font-size: 5vw;
+.nav__options a { 
+    font-size: .6em;
     font-weight: 600;
     text-transform: uppercase;
     padding: .8rem 0;
@@ -287,6 +305,7 @@ nav {
 header {
     background-color: var(--primary-colour);
     height: max-content;
+    font-size: 8vw;
 }
 
 .header__intro {
@@ -310,16 +329,16 @@ h1,
 
 h1,
 header {
-    font-size: 8vw;
     margin: 0;
 }
 
-.header__titleName {
+.header__title {
+    font-size: 1em;
     display: block;
 }
 
-.header__intro .header__subTitle {
-    font-size: 4.5vw;
+.header__subTitle {
+    font-size: .55em;
     font-weight: 600;
     margin: 2rem 0;
     line-height: var(--mobile-line-height);
@@ -327,7 +346,7 @@ header {
 }
 
 .header__intro a {
-    font-size: 4vw;
+    font-size: .5em;
     font-family: var(--secondary-font);
     color: var(--secondary-font-colour-light);
 }
@@ -375,6 +394,12 @@ header + .wave svg {
     padding-top: 0;
     padding-bottom: 2rem;
     background-color: var(--secondary-colour-light);
+}
+
+.mission .info p {
+    font-weight: 400;
+    padding: 0 1rem;
+    margin-top: 1rem;
 }
 
 .mission__title {
@@ -441,15 +466,16 @@ header + .wave svg {
     background-color: #FFEBC0;
     padding: 0;
     margin-top: -1px;
+    font-size: 6.5vw;
 }
 
 .tokenomics h2 {
-    /* color: var(--secondary-font-colour-light); */
     background: var(--secondary-colour);
     top: -1rem;
     margin-top: 0;
     position: relative;
     z-index: 9999;
+    font-size: 1em;
 }
 
 .tokenomics p {
@@ -459,10 +485,10 @@ header + .wave svg {
     width: 90%;
     position: relative;
     z-index: 9999;
-    font-weight: 600;
     padding: 2rem;
     background: #ffffffe6;
     border-radius: 20px;
+    font-size: .8em;
 }
 
 .tokenomics .wave {
@@ -494,12 +520,6 @@ header + .wave svg {
 .tokenomics .wave:nth-of-type(3) {
     bottom: -1px;
 }
-
-/* .tokenomics .wave:nth-of-type(2) svg {
-    height: 600px;
-    fill: #ffe09c;
-    transform: translateX(-50%) rotateY(145deg);
-} */
 
 .tokenomics .wave:nth-of-type(2) svg {
     height: 325px;
@@ -559,19 +579,39 @@ header + .wave svg {
 }
 
 .tokenomics__item {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
     position: relative;
     z-index: 1;
     line-height: 1;
     text-align: center;
+    font-size: 15vw;
+}
+
+.tokenomics__item > * {
+    flex: 1 0 50%;
+}
+
+.tokenomics__itemNumber {
+    text-align: right;
+}
+
+.tokenomics__itemSuffix {
+    text-align: left;
 }
 
 .tokenomics__itemNumber, .tokenomics__itemSuffix {
     color: var(--primary-colour);
     font-family: var(--secondary-font);
-    font-size: 15vw;
+    font-size: 1em;
     font-weight: 600;
     margin-top: 13px;
     display: inline-block;
+}
+
+.tokenomics__item h3 {
+    font-size: .3em;
 }
 
 .tokenomics__itemTitle {
@@ -657,6 +697,8 @@ header + .wave svg {
 .howToBuy__items, .blog__items {
     display: flex;
     flex-flow: column;
+    margin: 4rem 0;
+    font-size: 5.5vw;
 }
 
 .howToBuy__item, .blog__item {
@@ -685,15 +727,18 @@ header + .wave svg {
     font-family: var(--secondary-font);
     color: var(--secondary-font-colour);
     font-weight: 600;
-    font-size: 5.2vw;
+    font-size: 1em;
 }
 
-.howToBuy__item p, .blog__item p {
+.howToBuy .howToBuy__item p, .howToBuy .blog__item p {
     color: var( --secondary-font-colour-light );
     font-weight: 600;
+    font-size: .8em;
+    margin: 0 auto;
 }
 
 .howToBuy .ctaButton, .blog .ctaButton {
+    display: block;
     color: white;
     font-family: var( --secondary-font ), Sans-serif;
     font-weight: 400;
@@ -751,9 +796,9 @@ header + .wave svg {
     scroll-snap-stop: always;
 }
 
-/* .gallery-item img-container img {
-    box-shadow: 0 10px 16px 0 rgba(0, 0, 0, 0.2);
-} */
+.gallery-item .description-container {
+    font-size: 4.5vw;
+}
 
 .gallery-items-container .description-container p,
 .gallery-items-container .description-container h3 {
@@ -763,12 +808,13 @@ header + .wave svg {
 }
 
 .gallery-items-container .description-container h3 {
+    /* margin: 1rem 0 .5rem; */
+    color: var(--secondary-colour);
+    font-size: 1.3em;
     -webkit-line-clamp: 2;
     text-align: left;
     text-transform: unset;
-    padding-left: 3rem;
     padding: 1rem 3rem;
-    margin-left: -3rem;
     border-bottom: var(--secondary-font-colour);
     border-bottom-width: 4px;
     border-bottom-style: solid;
@@ -785,6 +831,7 @@ header + .wave svg {
 }
 
 .gallery-items-container .description-container ul {
+    font-size: 1.1em;
     padding-left: 3rem;
 }
 
@@ -830,11 +877,6 @@ header + .wave svg {
     width: 100%;
     height: 100%;
     padding: 1rem;
-}
-
-.small-items-gallery .gallery-items-container h3 {
-    margin: 1rem 0 .5rem;
-    font-size: 4.5vw;
 }
 
 .small-items-gallery .gallery-item:hover img:nth-of-type(2) {
@@ -921,9 +963,10 @@ span.arrow polyline {
 
 /****** FOOTER ******/
 footer {
-    height: 10vh;
-    max-height: 100px;
-    min-height: 90px;
+    font-size: 5vw;
+    height: 20vh;
+    max-height: 500px;
+    min-height: 100px;
     background: var(--secondary-font-colour);
     color: var(--secondary-colour);
     display: flex;
@@ -939,7 +982,7 @@ footer .container {
 
 .socialButtons a {
     color: var(--secondary-colour);
-    font-size: 6vw;
+    font-size: 1.2em;
     margin-right: 2vw;
 }
 
@@ -948,77 +991,8 @@ footer p {
 }
 
 .disclaimer {
-    font-size: 4.5vw;
+    font-size: .6em;
 }
-
-@media (orientation: landscape) {
-
-    /****** COMMON ******/
-    body {
-        font-size: var(--mobile-font-size-landscape);
-    }
-
-    h2 {
-        font-size: 8vh;
-    }
-
-    h3 {
-        font-size: 5vh;
-    }
-
-    .scrollUp a {
-        padding: 4vh;
-    }
-
-    /****** HEADER ******/
-    h1,
-    .header__typed,
-    header {
-        font-size: 15vh;
-    }
-
-    .header__intro .header__subTitle {
-        font-size: 4vh;
-    }
-
-    .header__intro a {
-        font-size: 3vh;
-    }
-
-    /****** SERVICES ******/
-    .icon {
-        width: 6vh;
-        height: 6vh;
-    }
-
-    /****** ABOUT & HOW TO BUY ******/
-    .about p, .howToBuy p {
-        font-size: 9vh;
-    }
-
-    /******* PORTFOLIO ******/
-
-    /* Gallery */
-    .gallery-items-container .description-container p {
-        font-size: 4vh;
-    }
-
-    /* .small-items-gallery .gallery-item {
-        width: 35vh;
-    } */
-
-    /****** QUOTE ******/
-    q {
-        font-size: 5vh;
-    }
-
-    /****** FOOTER ******/
-    .socialButtons a {
-        font-size: 6vh;
-        margin-right: 2vh;
-    }
-}
-
 
 @media all and (min-width:768px) {
 
@@ -1027,12 +1001,8 @@ footer p {
         font-size: var(--tablet-font-size);
     }
 
-    h2 {
-        font-size: 5vw;
-    }
-
-    h3 {
-        font-size: 2.8vw;
+    .info {
+        font-size: 5.5vw;
     }
 
     .scrollUp a {
@@ -1062,10 +1032,13 @@ footer p {
         width: 2.5rem;
     }
 
+    .info ul {
+        font-size: .6em;
+    }
+
     /****** HEADER ******/
-    .header__typed,
     header {
-        font-size: 7vw;
+        font-size: 6vw;
     }
 
     h1 {
@@ -1077,7 +1050,7 @@ footer p {
         width: 90%;
     }
 
-    .nav__logoContainer {
+    .nav__logoContainer p {
         font-size: 4vw;
     }
 
@@ -1090,8 +1063,7 @@ footer p {
         width: 90%;
     }
 
-    .header__intro .header__subTitle {
-        font-size: 2.5vw;
+    .header__subTitle {
         margin-top: 1rem;
         width: 90%;
         text-align: start;
@@ -1106,18 +1078,17 @@ footer p {
         margin-left: -4rem;
     }
 
-    .nav__options a {
-        font-size: 4vw;
-    }
-
     /****** MISSION ******/
     .mission__imgContainer .wave svg {
         height: 33px;
     }
     
     .mission .info {
-        width: 80%;
         margin: auto;
+    }
+
+    .mission .info p {
+        font-size: .7em;
     }
 
     .mission__title img {
@@ -1134,10 +1105,15 @@ footer p {
         background: none;
     }
 
-    .tokenomics p {
-        width: 70%;
+    .tokenomics p, .howToBuy p {
+        width: 85%;
         border-radius: 50px;
         padding: 2rem 3rem;
+        font-size: .5em;
+    }
+
+    .tokenomics__item {
+        font-size: 9vw;
     }
 
     .tokenomics__subContainer {
@@ -1153,31 +1129,25 @@ footer p {
         width: 45%;
     }
 
-    .tokenomics__itemNumber, .tokenomics__itemSuffix {
-        font-size: 8vw;
+    /******* HOW TO BUY & ABOUT ******/
+    .howToBuy__items, .about__items {
+        font-size: 3vw;
     }
 
-    /******* HOW TO BUY & ABOUT ******/
     .about h3, .howToBuy h3 {
         margin: 0;
-        font-size: 3vw;
     }
 
     .about ul {
         width: 85%;
         margin: 6rem auto;
-        font-size: 3vw;
     }
 
-    .about p {
-        font-size: 4vw;
+    .about .info p {
+        font-size: .8em;
     }
 
-    .howToBuy p {
-        font-size: 3vw;
-    }
-
-    .howToBuy .info, .roadmap .info {
+    .roadmap .info {
         width: 80%;
         margin: 0 auto;
     }
@@ -1187,20 +1157,24 @@ footer p {
     }
 
     .howToBuy p {
+        margin: auto;
         font-weight: 400;
     }
 
     .howToBuy__items, .blog__items {
         flex-flow: row wrap;
-        gap: 1rem;
+        justify-content: space-between;
     }
 
     .howToBuy__item, .blog__item {
         width: calc(calc(100vw - 8rem)/3);
+        margin: 0;
+        padding: 3rem 0;
     }
 
-    .howToBuy__item p {
-        font-size: 2.5vw;
+    .howToBuy .howToBuy__item p {
+        padding: 2rem 0;
+        font-weight: 400;
     }
 
     /******* ROADMAP ******/
@@ -1248,8 +1222,11 @@ footer p {
     }
 
     /****** FOOTER ******/
+    footer {
+        font-size: 4vw;
+    }
+
     .socialButtons a {
-        font-size: 3vw;
         margin-right: 1vw;
     }
 }
@@ -1278,8 +1255,11 @@ footer p {
         font-size: var(--desktop-font-size);
     }
 
+    .info {
+        font-size: 4.5vw;
+    }
+
     h2 {
-        font-size: 3.8vw;
         font-weight: 400;
     }
 
@@ -1307,11 +1287,8 @@ footer p {
         padding: 0;
     }
 
-    .nav__logoContainer {
-        font-size: 3vw;
-    }
-
     .nav__logoContainer p {
+        font-size: 3vw;
         margin: 0;
     }
 
@@ -1330,12 +1307,12 @@ footer p {
         padding: 0;
         background: none;
         opacity: 1;
+        font-size: 2.5vw;
     }
 
     .nav__options a {
         text-transform: uppercase;
         margin-right: 3rem;
-        font-size: 1.5vw;
         padding: 1rem;
     }
 
@@ -1354,21 +1331,13 @@ footer p {
     }
 
     /****** HEADER ******/
-    .header__typedElements {
-        width: 75%;
+    header {
+        font-size: 4.5vw;
     }
 
     .lineBreak::after {
         content: "\a";
         white-space: revert;
-    }
-
-    .header__intro .header__subTitle {
-        font-size: 2vw;
-    }
-
-    .header__intro a {
-        font-size: 1.5vw;
     }
 
     .header__imgContainer {
@@ -1380,19 +1349,17 @@ footer p {
         display: flex;
         flex-flow: row-reverse;
         padding-top: 7rem;
+        padding-left: 5rem;
+        padding-right: 5rem;
     }
 
     .mission__imgContainer .wave {
         display: none;
     }
 
-    .mission__imgContainer picture img {
-        width: 80%;
-        margin-top: -5rem;
-    }
-
     .mission .container {
         margin-top: 0;
+        opacity: 1;
     }
 
     .mission__title {
@@ -1403,14 +1370,16 @@ footer p {
         display: none;
     }
 
+    .mission .info p {
+        font-size: .6em;
+    }
+
     .mission h2 {
-        width: 60%;
         text-align: left;
         margin: 0;
     }
 
     .mission p {
-        font-size: 2.5vw;
         font-weight: 400;
         text-align: left;
     }
@@ -1440,7 +1409,6 @@ footer p {
     /****** HOW TO BUY ******/
     .howToBuy p {
         background: #ffffffeb;
-        padding: 2rem 3rem;
         border-radius: 50px;
     }
 
@@ -1503,73 +1471,72 @@ footer p {
     }
 }
 
-@media all and (min-width:1360px) {
-
+@media all and (min-width:1128px) {
     /****** COMMON ******/
-    body {
-        font-size: 2rem;
-        font-size: var(--large-desktop-font-size);
-    }
-
     h2 {
-        font-size: 4.6rem;
-        font-size: min(3vw, 6.5rem);
+        font-size: clamp(50px, 3.4vw, 60px);
     }
 
-    h3 {
-        font-size: 2rem;
-        font-size: min(1.3vw, 2.5rem);
-    }
-
-    .container {
-        margin: 0 var(--large-desktop-x-margin);
-    }
-
-    /****** NAV ******/
-    .nav__container {
-        padding: 2.5rem 6rem;
-    }
-
-    .nav__options a {
-        font-size: 1.5rem;
-        font-size: min(1vw, 2rem);
+    .info p, .tokenomics p, .about p {
+        font-size: clamp(34px, 2vw, 40px);
     }
 
     /****** HEADER ******/
-    h1,
-    .header__typed,
-    header {
-        font-size: 7rem;
-        font-size: min(4.5vw, 10.7rem);
+    .nav__container {
+        padding-right: clamp(5rem, 8vw, 15rem);
     }
 
-    .header__intro .header__subTitle {
-        font-size: 2.6rem;
-        font-size: min(1.7vw, 3.5rem);
+    .nav__container img {
+        height: 4.5vw;
+        min-height: 70px;
+        max-height: 85px;
     }
 
-    .header__intro a {
-        font-size: 1.5rem;
-        font-size: min(1vw, 2.3rem);
+    .nav__options a {
+        font-size: clamp(15px, .6em, 30px);
     }
 
-    /****** ABOUT ******/
-    .about, .howToBuy h3 {
-        font-size: 3rem;
-        font-size: min(2vw, 3.5rem);
+    .header__title {
+        font-size: clamp(60px, 1em, 80px);
     }
 
-    .about, .howToBuy p {
-        font-size: 7.7rem;
-        font-size: min(5vw, 9.2rem);
+    .header__subTitle {
+        font-size: clamp(25px, .55em, 35px);
     }
 
-    /***** PORTFOLIO ******/
-    .portfolio__filterOptions {
-        width: 28rem;
-        left: calc(50% - 14rem);
+    header .ctaButton {
+        font-size: clamp(27px, 1.75vw, 31px);
     }
 
+    /****** MISSION ******/
+    .mission img {
+        width: 80%;
+        min-width: 512.5px;
+        max-width: 650px;
+    }
+
+    /****** TOKENOMICS ******/
+    .tokenomics__item {
+        font-size: clamp(92px, 7vw, 104px);
+    }
+
+    .tokenomics + .wave svg {
+        height: max-content;
+    }
+
+    /****** ABOUT & HOW TO BUY *******/
+    .about h3, .howToBuy h3 {
+        font-size: clamp(33px, 3vw, 37px);
+    }
+
+    .about ul {
+        font-size: clamp(28px, 2.5vw, 33px);
+    }
+}
+
+@media all and (min-width:1360px) {
+
+    /***** ROADMAP ******/
     /* Gallery */
     .small-items-gallery {
         margin: 1.5rem var(--large-desktop-x-margin);
@@ -1601,12 +1568,6 @@ footer p {
         max-height: 6.1rem;
     }
 
-    /****** QUOTE ******/
-    q {
-        font-size: 3.8rem;
-        font-size: min(2.5vw, 4.6rem);
-    }
-
     /****** FOOTER ******/
     .socialButtons a {
         font-size: 3.2rem;
@@ -1628,10 +1589,6 @@ footer p {
     to {
         width: calc((var(--value) / 5) * 100%);
     }
-}
-
-.mission__skills {
-    margin-top: 5rem;
 }
 
 @keyframes fadeInUp {

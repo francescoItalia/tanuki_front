@@ -595,7 +595,15 @@ class horizontalScrollController {
       '.description-container'
     ).offsetHeight;
 
-    this.setAttributes(span, { 'style': `top: ${galleryImgHeight / 2}px` });
+    const galleryItemHeading = gallery.firstElementChild.querySelector(
+      '.description-container h3'
+    ).offsetHeight;
+
+    this.setAttributes(span, {
+      'style': `top: ${
+        (galleryImgHeight + (galleryItemHeading ? galleryItemHeading : 0)) / 2
+      }px`,
+    });
     span.classList.add('arrow', 'scroll-right');
 
     const svg = document.createElementNS(xmlns, 'svg');
@@ -622,11 +630,21 @@ class horizontalScrollController {
     const xmlns = 'http://www.w3.org/2000/svg';
 
     const span = document.createElement('span');
+
     const galleryImgHeight = gallery.firstElementChild.querySelector(
       '.description-container'
     ).offsetHeight;
 
-    this.setAttributes(span, { 'style': `top: ${galleryImgHeight / 2}px` });
+    const galleryItemHeading = gallery.firstElementChild.querySelector(
+      '.description-container h3'
+    ).offsetHeight;
+
+    this.setAttributes(span, {
+      'style': `top: ${
+        (galleryImgHeight + (galleryItemHeading ? galleryItemHeading : 0)) / 2
+      }px`,
+    });
+
     span.classList.add('arrow', 'scroll-left');
 
     const svg = document.createElementNS(xmlns, 'svg');
@@ -909,13 +927,13 @@ window.addEventListener('DOMContentLoaded', function () {
     {
       elementToObserve: '#roadmap',
       elementTargeted: '#roadmap .info',
+      classToAdd: 'fadeInLeft',
+    },
+    {
+      elementToObserve: '#roadmap',
+      elementTargeted: '#roadmap .description-container',
       classToAdd: 'fadeInRight',
     },
-    // {
-    //   elementToObserve: '#roadmap',
-    //   elementTargeted: '#roadmap .gallery-item',
-    //   classToAdd: 'fadeInUp',
-    // },
   ]);
 
   const indexController = new IndexToIdSmoothScroll('body');
