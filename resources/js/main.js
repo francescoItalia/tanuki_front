@@ -176,12 +176,7 @@ class MobileNavController {
     // Show nav options
     window.setTimeout(function () {
       _.navOptions.style.height = `${_.navOptionsInitHeight}px`;
-      console.log(_.navOptions.offsetHeight);
     }, 1);
-
-    window.setTimeout(function () {
-      _.navOptions.style.height = 'max-content';
-    }, 150);
 
     this.navOptions.style.display = 'flex';
     // Update menu state

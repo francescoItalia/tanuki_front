@@ -264,6 +264,9 @@ nav {
 }
 
 .nav__options {
+    display: flex;
+    flex-flow: column;
+    justify-content: space-between;
     opacity: 0;
     overflow: hidden;
     display: flex;
@@ -275,6 +278,7 @@ nav {
     transition: height .1s linear;
     z-index: 1;
     background-color: var(--primary-colour-light);
+    padding: 2rem 0;
 }
 
 .nav__options a { 
@@ -285,14 +289,6 @@ nav {
     padding-left: 2.5rem;
     cursor: pointer;
     color: var(--primary-font-colour);
-}
-
-.nav__options a:first-of-type {
-    padding-top: 2.5rem;
-}
-
-.nav__options a:last-of-type {
-    padding-bottom: 2.5rem;
 }
 
 .nav__options a:hover {
@@ -1373,6 +1369,10 @@ footer p {
         text-transform: uppercase;
         margin-right: 3rem;
         padding: 1rem;
+    }
+
+    .nav__options a:last-of-type {
+        display: none;
     }
 
     .nav__options a:first-of-type,
